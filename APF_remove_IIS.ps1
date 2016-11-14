@@ -28,7 +28,7 @@ $userDomain = $item.userDomain
 $saUser = $item.saUser
 
 $chk = Test-Path $phyPath
-If ($chk -eq $True){    Remove-Item $phyPath -Force
+If ($chk -eq $True){    Remove-Item $phyPath -Force -Recurse
     $log = "deleted folder: $phyPath"     $log | Out-File -Append -FilePath $resultLogPath    }
 }
 
@@ -46,7 +46,7 @@ $saUser = $item.saUser
 $saPassword = $item.saPassword
 
 $chk = Test-Path IIS:\AppPools\$appPoolNameIf ($chk -eq $True){
-    Remove-Item IIS:\AppPools\$appPoolName -Force
+    Remove-Item IIS:\AppPools\$appPoolName -Recurse
 
     $log = "deleted application pool: $appPoolName"     $log | Out-File -Append -FilePath $resultLogPath
     }
@@ -66,7 +66,7 @@ $ipRange = $item.ipRange
 $ipMask = $item.ipMask
 
 $chk = Test-Path IIS:\Sites\$siteNameIf ($chk -eq $True){
-    Remove-Item IIS:\Sites\$siteName
+    Remove-Item IIS:\Sites\$siteName -Recurse
         $log = "deleted web site: $siteName"     $log | Out-File -Append -FilePath $resultLogPath
     }
 }
