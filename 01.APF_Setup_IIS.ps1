@@ -48,7 +48,13 @@ $saUser = $item.saUser
 
 $chk = Test-Path $phyPath
 If ($chk -eq $false){
-    $IdentityReference = $userDomain + '\' + $saUser    $FileSystemAccessRights = [System.Security.AccessControl.FileSystemRights]”FullControl”    $InheritanceFlags = [System.Security.AccessControl.InheritanceFlags]”ContainerInherit, ObjectInherit”    $PropagationFlags = [System.Security.AccessControl.PropagationFlags]”None”    $AccessControl = [System.Security.AccessControl.AccessControlType]”Allow”    $AccessRule = NEW-OBJECT System.Security.AccessControl.FileSystemAccessRule `    ($IdentityReference,$FileSystemAccessRights,$InheritanceFlags,$PropagationFlags,$AccessControl)    New-Item $phyPath -ItemType directory -Force
+    $IdentityReference = $userDomain + '\' + $saUser    $FileSystemAccessRights = [System.Security.AccessControl.FileSystemRights]”FullControl”    $InheritanceFlags = [System.Security.AccessControl.InheritanceFlags]”ContainerInherit, ObjectInherit”    $PropagationFlags = [System.Security.AccessControl.PropagationFlags]”None”    $AccessControl = [System.Security.AccessControl.AccessControlType]”Allow”    $AccessRule = NEW-OBJECT System.Security.AccessControl.FileSystemAccessRule `    ($IdentityReference,$FileSystemAccessRights,$InheritanceFlags,$PropagationFlags,$AccessControl)    try{    New-Item $phyPath -ItemType directory -Force -ErrorAction stop
+    }
+    catch{
+    $log = "ERROR!:" + $_.Exception.Message
+    $log | Out-File -Append -FilePath $resultLogPath
+    Break
+    }
     $phyPathACL = Get-Acl $phyPath    $phyPathACL.AddAccessRule($AccessRule)    Set-Acl -path $phyPath -AclObject $phyPathACL    $log = "created folder: $phyPath"     $log | Out-File -Append -FilePath $resultLogPath    }$chk = Test-Path $logPathIf ($chk -eq $false){    New-Item $logPath -ItemType directory -Force
 
     $log = "created folder: $logPath"     $log | Out-File -Append -FilePath $resultLogPath
