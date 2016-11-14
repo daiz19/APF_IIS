@@ -1,0 +1,4 @@
+appPoolName,idType,userDomain,saUser,saPassword,siteName,phyPath,port,protocol,logPath
+RGNPOOL,SpecificUser,hana.local,saRGNPOOL,p@ssw0rd,RGNapi Website,E:\Web\RGN,8443,https,E:\Web\RGN\LOG
+VNMPOOL,SpecificUser,hana.local,saVNMPOOL,p@ssw0rd,VNMapi Website,E:\Web\VNM,8444,https,E:\Web\VNM\LOG
+PAKPOOL,SpecificUser,hana.local,saPAKPOOL,p@ssw0rd,PAKapi Website,E:\Web\PAK,8445,https,E:\Web\PAK\LOG
