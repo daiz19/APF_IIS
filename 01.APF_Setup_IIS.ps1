@@ -111,6 +111,10 @@ $chk = Test-Path IIS:\Sites\$siteNameIf ($chk -eq $false){
         Set-WebConfigurationProperty -filter "/system.webServer/security/authentication/windowsAuthentication" `
         -name enabled -value true -PSPath IIS:\ -location $siteName
         }
+    Else{
+        Set-WebConfigurationProperty -filter “system.webServer/security/access” `
+        -name “sslFlags” -value “Ssl,SslNegotiateCert,SslRequireCert” -PSPath IIS:\ -location $siteName
+        }
         $log = "created web site: $siteName"     $log | Out-File -Append -FilePath $resultLogPath
     }
 }
